@@ -4,23 +4,26 @@ This project is an on-the-fly programming application of a Multi-Agent System co
 ![Alt text](https://g.gravizo.com/source/finantialAgentsOverview?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md)
 
 <details> 
-<summary></summary>
+<summary>Finantial Agents Overview</summary>
 finantialAgentsOverview
 digraph G {
     subgraph cluster_0 {
         label="Multi-Agent System";
-        StockData [shape=box];
+        StockData [shape=cylinder];
         Manager;
         Consultant [label="n Consultants"];
         Manager -> Consultant;
         Consultant -> StockData;
+    }
+    subgraph cluster_1 {
+        label="Telegram";
+        Telegram [shape=note];
         Consultant -> Telegram;
         Manager -> Telegram;
     }
-    subgraph cluster_1 {
+    subgraph cluster_2 {
         label="Humans";
-	      Human [shape=circle];
-        Telegram [shape=diamond];
+	Human [shape=circle];
         Human -> Telegram;
     }
 }
@@ -31,7 +34,7 @@ finantialAgentsOverview
 
 ![Alt text](https://g.gravizo.com/source/finantialAgentsPhases?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2Fcleberjamaral.github.io%2Fmaster%2FREADME.md?1)
 <details> 
-<summary></summary>
+<summary>Project phases - deliveries every week</summary>
 finantialAgentsPhases
 @startuml;
 (*) -right-> "run auction demo app" 
