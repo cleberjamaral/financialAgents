@@ -7,25 +7,25 @@ This project is an on-the-fly programming application of a Multi-Agent System co
 <summary>Finantial Agents Overview</summary>
 finantialAgentsOverview
 digraph G {
-    subgraph cluster_0 {
-        label="Multi-Agent System";
-        StockData [shape=cylinder];
-        Manager;
-        Consultant [label="n Consultants"];
-        Manager -- Consultant;
-        Consultant -- StockData;
-    }
-    subgraph cluster_1 {
-        label="Telegram";
-        Telegram [shape=note];
-        Consultant -- Telegram;
-        Manager -- Telegram;
-    }
-    subgraph cluster_2 {
-        label="Humans";
-	Human [shape=circle];
-        Human -- Telegram;
-    }
+	subgraph cluster_0 {
+		label="Multi-Agent System";
+		StockData [shape=cylinder];
+		Manager;
+		Consultant [label="n Consultants"];
+	}
+	subgraph cluster_1 {
+		label="Telegram";		
+		Telegram [shape=note];
+	}
+	subgraph cluster_2 {
+		label="Humans";
+		Human [shape=circle];
+	}
+        Manager -> Consultant;
+        Consultant -> StockData;
+	Consultant -> Telegram;
+	Manager -> Telegram;
+	Human -> Telegram;
 }
 finantialAgentsOverview
 </details>
