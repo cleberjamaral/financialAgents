@@ -12,19 +12,19 @@ digraph G {
         StockData [shape=cylinder];
         Manager;
         Consultant [label="n Consultants"];
-        Manager -> Consultant;
-        Consultant -> StockData;
+        Manager -- Consultant;
+        Consultant -- StockData;
     }
     subgraph cluster_1 {
         label="Telegram";
         Telegram [shape=note];
-        Consultant -> Telegram;
-        Manager -> Telegram;
+        Consultant -- Telegram;
+        Manager -- Telegram;
     }
     subgraph cluster_2 {
         label="Humans";
 	Human [shape=circle];
-        Human -> Telegram;
+        Human -- Telegram;
     }
 }
 finantialAgentsOverview
@@ -36,13 +36,15 @@ finantialAgentsOverview
 <details> 
 <summary>Project phases - deliveries every week</summary>
 finantialAgentsPhases
-@startuml;
-(*) -right-> "run auction demo app" 
-  -right-> "change agent plans to store\nan stock exchange and\nrecomended price";
-  -right-> "change artifact to access\ncurrent stock prices\nautomatically";
-  -down-> "week4"
-  -left-> "week5"
-@enduml          
- }
+digraph G {
+	w0 [label="run auction demo app"];
+  	w1 [label="change agent plans to store\nan stock exchange and\nrecomended price"];
+	w2 [label="change artifact to access\ncurrent stock prices\nautomatically"];
+	w0 -> w1;
+	w1 -> w2;
+	w2 -> w3;
+	w3 -> w4;
+	w4 -> w5;
+}
 finantialAgentsPhases
 </details>
