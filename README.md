@@ -8,7 +8,7 @@ This project is an on-the-fly programming application of a Multi-Agent System co
 finantialAgentsOverview
 digraph G {
 	subgraph cluster_0 {
-		label="Multi-Agent System";
+		label="Multi-Agent System\nFinantial Agents";
 		StockData [shape=cylinder];
 		Manager;
 		Consultant [label="n Consultants"];
