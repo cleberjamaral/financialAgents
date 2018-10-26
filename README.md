@@ -6,18 +6,23 @@ This project is an on-the-fly programming application of a Multi-Agent System co
 <details> 
 <summary></summary>
 custom_mark10
-  digraph G {
-    size ="4,4";
-    StockData [shape=box];
-    Telegram [shape=diamond];
-    Manager;
-    Consultant ["n Consultants"];
-    Manager -> Consultant;
-    Consultant -> StockData;
-    Consultant -> Telegram;
-    Manager -> Telegram;
-    Human -> Telegram;
-  }
+digraph {
+    subgraph cluster_0 {
+        label="Multi-Agent System";
+        StockData [shape=box];
+        Manager;
+        Consultant ["n Consultants"];
+        Manager -> Consultant;
+        Consultant -> StockData;
+        Consultant -> Telegram;
+        Manager -> Telegram;
+    }
+    subgraph cluster_1 {
+        label="Humans";
+        Telegram [shape=diamond];
+        Human -> Telegram;
+    }
+}
 custom_mark10
 </details>
 
