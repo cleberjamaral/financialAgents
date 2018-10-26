@@ -48,6 +48,7 @@ finantialAgentsPhases
 -right-> "week9";
 -right-> "week10";
 -right-> "week11";
+-right-> (*) 
 @enduml 
 finantialAgentsPhases
 </details>
