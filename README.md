@@ -36,15 +36,13 @@ finantialAgentsOverview
 <details> 
 <summary>Project phases - deliveries every week</summary>
 finantialAgentsPhases
-digraph G {
-	w0 [label="run auction demo app"];
-  	w1 [label="change agent plans to store\nan stock exchange and\nrecomended price"];
-	w2 [label="change artifact to access\ncurrent stock prices\nautomatically"];
-	w0 -> w1;
-	w1 -> w2;
-	w2 -> w3;
-	w3 -> w4;
-	w4 -> w5;
-}
+@startuml;
+(*) -right-> "run auction demo app";
+-right-> "run auction demo app";
+-right-> "change agent plans to store\nan stock exchange and\nrecomended price";
+-down-> "change artifact to access\ncurrent stock prices\nautomatically";
+-left-> "week4";
+-left-> "week5";
+@enduml 
 finantialAgentsPhases
 </details>
