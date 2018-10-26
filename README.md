@@ -23,9 +23,9 @@ digraph G {
 	}
         Manager -> Consultant;
         Consultant -> StockData;
-	Consultant -> Telegram;
-	Manager -> Telegram;
-	Human -> Telegram;
+	Consultant -> Telegram [constraint=false];
+	Manager -> Telegram [constraint=false];
+	Human -> Telegram [constraint=false];
 }
 finantialAgentsOverview
 </details>
