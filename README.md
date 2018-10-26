@@ -38,11 +38,16 @@ finantialAgentsOverview
 finantialAgentsPhases
 @startuml;
 (*) -right-> "run auction demo app";
--right-> "run auction demo app";
 -right-> "change agent plans to store\nan stock exchange and\nrecomended price";
--down-> "change artifact to access\ncurrent stock prices\nautomatically";
--left-> "week4";
+-right-> "change artifact to access\ncurrent stock prices\nautomatically";
+-down-> "week4";
 -left-> "week5";
+-left-> "week6";
+-left-> "week7";
+-down-> "week8";
+-right-> "week9";
+-right-> "week10";
+-right-> "week11";
 @enduml 
 finantialAgentsPhases
 </details>
