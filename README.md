@@ -9,9 +9,9 @@ finantialAgentsOverview
 digraph G {
 	subgraph cluster_0 {
 		label="Multi-Agent System\nFinantial Agents";
-		StockData [shape=cylinder];
-		Manager;
-		Consultant [label="n Consultants"];
+		StockData [label="Stock Data", shape=cylinder];
+		ChiefAnalyst [label="Chief Analyst"];
+		Expert [label="n Experts"];
 	}
 	subgraph cluster_1 {
 		label="Telegram";		
@@ -21,11 +21,11 @@ digraph G {
 		label="Humans";
 		Human [shape=circle];
 	}
-        Manager -> Consultant;
-        Consultant -> StockData;
-	Consultant -> Telegram [constraint=false];
-	Manager -> Telegram [constraint=false];
-	Human -> Telegram [constraint=false];
+        ChiefAnalyst -> Expert;
+        Expert -> StockData;
+	Expert -> Telegram [constraint=false, label="My expertice is XYZ3\nCurrent quotation is R$ 10.00\nI recomend buy/sell/wait\nStock is now under ceiling price"];
+	ChiefAnalyst -> Telegram [constraint=false, label="I am the analyst\nI recomend action ABC4"];
+	Human -> Telegram [constraint=false, label="Your expertice?\nCurrent quotation?\nYour recomendation?"];
 }
 finantialAgentsOverview
 </details>
@@ -37,9 +37,9 @@ finantialAgentsOverview
 <summary>Project phases - deliveries every week</summary>
 finantialAgentsPhases
 @startuml;
-(*) -right-> "run auction demo app";
--right-> "change agent plans to store\nan stock exchange and\nrecomended price";
--right-> "change artifact to access\ncurrent stock prices\nautomatically";
+(*) -right-> "adapt camel-artifact to be generic\nrun auction demo app";
+-right-> "expert start to monitor a stock\nexpert accepts ceiling price\n expert recomended action";
+-right-> "expert uses history to alert buy zone";
 -down-> "week4";
 -left-> "week5";
 -left-> "week6";

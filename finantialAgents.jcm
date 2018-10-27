@@ -14,39 +14,18 @@
 
 mas finantialAgents {
 
-	agent a	: auctioneer.asl {
-    	beliefs: 	total(3)
-    				product(diamond_ring)
-    				chatIdTelegram("-274694619")
+	agent ca	: chiefanalyst.asl {
     	goals:		start
-		focus:		auction1
-					telegrambot0
+		focus:		telegrambot0
 	}
 	 
-    agent bot1 : participant.asl {
-    	beliefs:	chatIdTelegram("-274694619")
-		focus:		auction1
-					telegrambot1
-	}
-     
-    agent bot2 : participant.asl {
-    	beliefs:	chatIdTelegram("-274694619")
-		focus:		auction1
-					telegrambot2
-	}
-	
-    agent bot3 : participant.asl {
-    	beliefs:	chatIdTelegram("-274694619")
-    	focus:		auction1
-					telegrambot3
+    agent bot		: expert.asl {
+    	goals		: start
+    	instances	: 3
 	}
 
- 	workspace market_place {
-        artifact auction1 : auction.AuctionArtifact()
+ 	workspace finantialmarket {
         artifact telegrambot0 : telegram.BotArtifact()
-        artifact telegrambot1 : telegram.BotArtifact()
-        artifact telegrambot2 : telegram.BotArtifact()
-        artifact telegrambot3 : telegram.BotArtifact()
     }
  
     asl-path: src/agt

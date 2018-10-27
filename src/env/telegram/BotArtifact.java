@@ -1,6 +1,7 @@
 package telegram;
 
 import cartago.*;
+import jason.asSyntax.Atom;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -22,13 +23,15 @@ import camelartifact.CamelArtifact;
 @ARTIFACT_INFO(outports = { @OUTPORT(name = "out-1") })
 
 public class BotArtifact extends CamelArtifact {
+
+	static int n = 0;
 	
 	@OPERATION
 	public void startCamel(String chatId) {
 		String token = null;
 		BufferedReader telegramtoken;
 		try {
-			telegramtoken = new BufferedReader(new FileReader("../../sensitiveData/" + getId().toString() + ".token"));
+			telegramtoken = new BufferedReader(new FileReader("../sensitiveData/" + getId().toString() + ".token"));
 			token = telegramtoken.readLine();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -63,22 +66,36 @@ public class BotArtifact extends CamelArtifact {
 					from(telegramURI)
 					.process(new Processor() {
 						public void process(Exchange exchange) {
-							String str = exchange.getIn().getBody(String.class);
-							//System.out.println("String:" + str);
+							String str = exchange.getIn().getBody(String.class).toLowerCase();
 							
-							//System.out.println("String2:" + exchange.getIn().getBody().toString());
+							// message is asking for agent's expertice?
+							if ((!str.contains("setexpertice"))&&(str.contains("exper"))) 
+								str = "giveexpertise";
+							// message is asking current quotation / price?
+							if ((str.contains("quota")) || (str.contains("price"))) 
+								str = "givequotation";
+							// message is asking current quotation / price?
+							if (str.contains("artifact")) 
+								str = "recreateartifact";
 							
-							//Map<String,Object> head = exchange.getIn().getHeaders();
-							//System.out.println("Head:" + head);
-							
-							//HashMap<String, Object> body = exchange.getIn().getBody(HashMap.class);
-							//System.out.println("Map:" + body.toString());
 
 							exchange.getIn().setHeader("ArtifactName", getId().toString());
-							exchange.getIn().setHeader("OperationName", str);
-							exchange.getIn().setBody(null);
+							
+							List<Object> listObj = new ArrayList<Object>();
+							
+							// If there is no more parameters
+							if (str.indexOf('(') == -1) {
+								listObj.add(str);
+								exchange.getIn().setHeader("OperationName", "createEvent");
+							}
+							else {
+								listObj.add(str.substring(0, str.indexOf('(')));
+								listObj.add(str.substring(str.indexOf('(')+1, str.indexOf(')')));
+								exchange.getIn().setHeader("OperationName", "updateProperty");
+							}
+							
+							exchange.getIn().setBody(listObj);							
 					}})
-					//.transform(body().convertToString())
 					.to("artifact:cartago");
 
 					from("artifact:cartago").process(new Processor() {
@@ -111,37 +128,14 @@ public class BotArtifact extends CamelArtifact {
 	}	
 
 	@OPERATION
-	public void getIn() {
-		List<Object> params  = new ArrayList<Object>();
-		params.add(getId().toString());
-		params.add("getIn");
-		sendMsg(getId().toString(),"telegram",params);
-		
-		try {
-			if (getCurrentOpAgentId() != null)
-				execLinkedOp("out-1","getInAuction",getCurrentOpAgentId().getAgentName());
-			else
-				execLinkedOp("out-1","getInAuction","human");
-		} catch (OperationException e) {
-			e.printStackTrace();
-		}
+	public void createEvent(String eventName) {
+		signal(eventName);
 	}
-
+	
 	@OPERATION
-	public void getOut() {
-		List<Object> params  = new ArrayList<Object>();
-		params.add(getId().toString());
-		params.add("getOut");
-		sendMsg(getId().toString(),"telegram",params);
-
-		try {
-			if (getCurrentOpAgentId() != null)
-				execLinkedOp("out-1","getOutAuction",getCurrentOpAgentId().getAgentName());
-			else
-				execLinkedOp("out-1","getOutAuction","human");
-
-		} catch (OperationException e) {
-			e.printStackTrace();
-		}
+	public void updateProperty(Object... parameters) {
+		String argument = parameters[1].toString();
+		defineObsProperty(parameters[0].toString(), new Atom(argument));
+		//defineObsProperty("setexpertice", 0);
 	}
 }
