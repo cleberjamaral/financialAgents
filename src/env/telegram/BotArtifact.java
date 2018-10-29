@@ -25,6 +25,7 @@ import camelartifact.CamelArtifact;
 public class BotArtifact extends CamelArtifact {
 
 	static int n = 0;
+	List<String> menu = new ArrayList<String>();
 	
 	@OPERATION
 	public void startCamel(String chatId) {
@@ -47,60 +48,83 @@ public class BotArtifact extends CamelArtifact {
 		/* Create the routes */
 		try {
 			camelContext.addRoutes(new RouteBuilder() {
-//			Telegram message structure
-//				IncomingMessage{
-//				messageId=139, 
-//				date=2018-10-25T14:24:22Z, 
-//				from=User{
-//					id=NNNNN, 
-//					firstName='Cleber', 
-//					lastName='null', 
-//					username='cleberjamaral'
-//				}, 
-//				text='getIn', 
-//				chat=Chat{id='NNNNN', title='null', type='private'}, 
-//				photo=null, video=null, audio=null, document=null
-//				}					
+				// Telegram message structure
+				// IncomingMessage{
+				// messageId=139,
+				// date=2018-10-25T14:24:22Z,
+				// from=User{
+				// id=NNNNN,
+				// firstName='Cleber',
+				// lastName='null',
+				// username='cleberjamaral'
+				// },
+				// text='getIn',
+				// chat=Chat{id='NNNNN', title='null', type='private'},
+				// photo=null, video=null, audio=null, document=null
+				// }
 				@Override
 				public void configure() {
-					from(telegramURI)
-					.process(new Processor() {
+					from(telegramURI).process(new Processor() {
 						public void process(Exchange exchange) {
-							String str = exchange.getIn().getBody(String.class).toLowerCase();
-							
-							// message is asking for agent's expertice?
-							if ((!str.contains("setexpertice"))&&(str.contains("exper"))) 
-								str = "giveexpertise";
-							// message is asking current quotation / price?
-							if ((str.contains("quota")) || (str.contains("price"))) 
-								str = "givequotation";
-							// message is asking current quotation / price?
-							if (str.contains("artifact")) 
-								str = "recreateartifact";
-							
+							try {
+								String str = exchange.getIn().getBody(String.class).toLowerCase();
+								log("Content to process: " + str);
 
-							exchange.getIn().setHeader("ArtifactName", getId().toString());
-							
-							List<Object> listObj = new ArrayList<Object>();
-							
-							// If there is no more parameters
-							if (str.indexOf('(') == -1) {
-								listObj.add(str);
-								exchange.getIn().setHeader("OperationName", "createEvent");
+								exchange.getIn().setHeader("ArtifactName", getId().toString());
+								List<Object> listObj = new ArrayList<Object>();
+
+								// The text has parenthesis (property instead of a signal)?
+								String option = "";
+								if (str.indexOf('(') == -1) {
+									option = str;
+								} else {
+									option = str.substring(0, str.indexOf('('));
+								}
+								
+								// The option is supported by the agent?
+								if (!menu.contains(option)) {
+									exchange.getIn().setHeader("OperationName", "createEvent");
+									listObj.add("invalidoption");
+									exchange.getIn().setBody(null);
+
+								} else {
+
+									// if there is no more parameters
+									if (str.indexOf('(') == -1) {
+										listObj.add(str);
+										exchange.getIn().setHeader("OperationName", "createEvent");
+									} else {
+										listObj.add(option);
+										String arguments = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
+										listObj.add(arguments);
+//										do {
+//											if (str.indexOf(',') == -1) {
+//												listObj.add(arguments);
+//												arguments = "";
+//											} else {
+//												listObj.add(arguments.substring(0, str.indexOf(',')));
+//												arguments = arguments.substring(arguments.indexOf(',') + 1,
+//														arguments.length());
+//											}
+//										} while (arguments.length() > 0);
+										exchange.getIn().setHeader("OperationName", "updateProperty");
+									}
+								}
+								exchange.getIn().setBody(listObj);
+							} catch (Exception e) {
+								e.printStackTrace();
 							}
-							else {
-								listObj.add(str.substring(0, str.indexOf('(')));
-								listObj.add(str.substring(str.indexOf('(')+1, str.indexOf(')')));
-								exchange.getIn().setHeader("OperationName", "updateProperty");
-							}
-							
-							exchange.getIn().setBody(listObj);							
-					}})
-					.to("artifact:cartago");
+						}
+					}).to("artifact:cartago");
 
 					from("artifact:cartago").process(new Processor() {
 						public void process(Exchange exchange) throws Exception {
-							exchange.getIn().setBody(exchange.getIn().getBody().toString());
+							try {
+								String str = exchange.getIn().getBody().toString();
+								exchange.getIn().setBody(str.replaceAll("\\[", "").replaceAll("\\]", ""));
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}).to(telegramURI);
 				}
@@ -122,20 +146,31 @@ public class BotArtifact extends CamelArtifact {
 	@OPERATION
 	public void sendString(String msg) {
 		List<Object> params  = new ArrayList<Object>();
-		params.add(getId().toString());
 		params.add(msg);
 		sendMsg(getId().toString(),"telegram",params);
 	}	
 
-	@OPERATION
+	@INTERNAL_OPERATION
 	public void createEvent(String eventName) {
 		signal(eventName);
+		log("signal: " + eventName);
 	}
 	
+	//TODO: Why it cannot be @INTERNAL_OPERATION as createEvent?
 	@OPERATION
 	public void updateProperty(Object... parameters) {
 		String argument = parameters[1].toString();
-		defineObsProperty(parameters[0].toString(), new Atom(argument));
-		//defineObsProperty("setexpertice", 0);
+		signal(parameters[0].toString(), new Atom(argument));
+		log("signal: " + parameters[0].toString() + " / " + argument);
+	}
+
+	@OPERATION
+	public void clearMenu() {
+		menu.clear();
+	}
+
+	@OPERATION
+	public void addMenuOption(String str) {
+		menu.add(str.toLowerCase());
 	}
 }

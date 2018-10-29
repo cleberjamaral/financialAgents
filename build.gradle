@@ -51,6 +51,8 @@ dependencies {
   
   compile group: 'nz.ac.otago', name: 'camelartifact', version: '0.0.2'
 
+  compile 'org.jsoup:jsoup:1.10.2'
+
 }
 
 sourceSets {
