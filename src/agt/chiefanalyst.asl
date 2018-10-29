@@ -11,7 +11,6 @@
 
 +!stopsystem <-
     sendString("Stopping system... a new launch must be done manually!");
-    .wait(2000);
     .broadcast(achieve, stop).	 
 
 // default beliefs are set here because of use of bb persistence
