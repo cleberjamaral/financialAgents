@@ -35,7 +35,7 @@ ext {
 }
 
 dependencies {
-  compile group: 'org.jacamo', name: 'jacamo', version: '0.7'
+  //compile group: 'org.jacamo', name: 'jacamo', version: '0.7'
   // https://mvnrepository.com/artifact/commons-lang/commons-lang
   compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
   // https://mvnrepository.com/artifact/org.apache.camel/camel-core
@@ -52,6 +52,27 @@ dependencies {
   compile group: 'nz.ac.otago', name: 'camelartifact', version: '0.0.2'
 
   compile 'org.jsoup:jsoup:1.10.2'
+  
+  compile 'org.jacamo:jacamo:0.8-SNAPSHOT'
+  
+  
+  compile 'com.sun.xml.bind:jaxb-core:+'
+  compile 'com.sun.xml.bind:jaxb-impl:+'
+
+  compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.27'
+  compile 'org.glassfish.jersey.inject:jersey-hk2:2.27'
+  compile 'org.glassfish.jersey:jersey-bom:2.27'
+
+  compile 'org.glassfish.jersey.core:jersey-client:+'
+  compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.27'
+  // https://mvnrepository.com/artifact/log4j/log4j
+  compile 'org.apache.zookeeper:zookeeper:3.5.4-beta'
+  compile 'org.apache.curator:curator-framework:4.0.1'
+  compile 'org.apache.curator:curator-x-async:4.0.1'
+  
+  compile 'org.jacamo:jacamo-rest:1.0'
+  // https://mvnrepository.com/artifact/log4j/log4j
+  compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
 }
 

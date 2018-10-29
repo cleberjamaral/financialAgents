@@ -13,11 +13,11 @@
 */
 
 mas finantialAgents {
+	agent one
 
 	agent ca:		 	chiefanalyst.asl {
 		focus:			telegrambot0
-		ag-bb-class: 	jason.bb.TextPersistentBB //TODO: persistencia nao esta funcionando!
-		//ag-class:		beliefBaseClass //TODO: como fica esta configuração?
+		ag-bb-class: 	jason.bb.TextPersistentBB
 	}
 	 
     agent bot: 			expert.asl {
@@ -31,6 +31,8 @@ mas finantialAgents {
  
     asl-path: src/agt
               src/agt/inc
+              
+    platform: jacamo.web.JCMRest("--restPort 8080")
 
 }
 
@@ -86,4 +88,4 @@ agent bob : participant.asl { // if source is omitted, bob.asl will be used by d
     infrastructure: Centralised
     agents:
         a beliefBaseClass jason.bb.TextPersistentBB;
- */    
+ */

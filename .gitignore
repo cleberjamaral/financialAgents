@@ -18,6 +18,9 @@ gradlew.bat
 
 *.class
 
+# Agents belief base files
+*.bb
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

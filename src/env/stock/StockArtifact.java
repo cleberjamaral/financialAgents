@@ -30,7 +30,7 @@ public class StockArtifact extends Artifact {
 				Elements rows = table.select("tr");
 				Element row = rows.get(1);
 				Elements cols = row.select("td");
-				// [empty], Horário, Var, Var (%), Última, Máximo, Mínimo, Abertura, Volume
+				// [empty], Horario, Var, Var (%), ultima, Maximo, Minimo, Abertura, Volume
 				NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 				Number number = format.parse(cols.get(3).text());
 				defineObsProperty("lastquotation", number.doubleValue());
@@ -52,10 +52,8 @@ public class StockArtifact extends Artifact {
 				log("Error getting quotation!");
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

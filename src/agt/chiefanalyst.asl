@@ -9,12 +9,17 @@
 	-+updatemenu;
 	-+introduceyourself.
 
-+!stopsystem <-
++stopsystem <-
+	.drop_all_intentions;
+	.print("Stopping system... a new launch must be done manually!");
     sendString("Stopping system... a new launch must be done manually!");
-    .broadcast(achieve, stop).	 
+    .broadcast(achieve, stop);
+    !!stop.	 
 
 // default beliefs are set here because of use of bb persistence
 +!setDefaultParams <-
+	.abolish(chatIdTelegram(_));
+	.abolish(menu(_));
 	-+chatIdTelegram("-274694619");
 	-+menu(["IntroduceYourself","StopSystem","UpdateMenu"]).
 
