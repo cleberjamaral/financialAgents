@@ -1,4 +1,4 @@
-package telegram;
+package dynamic.telegram;
 
 import cartago.*;
 import jason.asSyntax.Atom;
@@ -83,7 +83,7 @@ public class BotArtifact extends CamelArtifact {
 								
 								// The option is supported by the agent?
 								if (!menu.contains(option)) {
-									exchange.getIn().setHeader("OperationName", "createEvent");
+									exchange.getIn().setHeader("OperationName", "generateSignal");
 									listObj.add("invalidoption");
 									exchange.getIn().setBody(null);
 
@@ -92,7 +92,7 @@ public class BotArtifact extends CamelArtifact {
 									// if there is no more parameters
 									if (str.indexOf('(') == -1) {
 										listObj.add(str);
-										exchange.getIn().setHeader("OperationName", "createEvent");
+										exchange.getIn().setHeader("OperationName", "generateSignal");
 									} else {
 										listObj.add(option);
 										String arguments = str.substring(str.indexOf('(') + 1, str.indexOf(')'));
@@ -107,7 +107,7 @@ public class BotArtifact extends CamelArtifact {
 //														arguments.length());
 //											}
 //										} while (arguments.length() > 0);
-										exchange.getIn().setHeader("OperationName", "updateProperty");
+										exchange.getIn().setHeader("OperationName", "generateSignalListParams");
 									}
 								}
 								exchange.getIn().setBody(listObj);
@@ -151,14 +151,14 @@ public class BotArtifact extends CamelArtifact {
 	}	
 
 	@INTERNAL_OPERATION
-	public void createEvent(String eventName) {
+	public void generateSignal(String eventName) {
 		signal(eventName);
 		log("signal: " + eventName);
 	}
 	
 	//TODO: Why it cannot be @INTERNAL_OPERATION as createEvent?
 	@OPERATION
-	public void updateProperty(Object... parameters) {
+	public void generateSignalListParams(Object... parameters) {
 		String argument = parameters[1].toString();
 		signal(parameters[0].toString(), new Atom(argument));
 		log("signal: " + parameters[0].toString() + " / " + argument);

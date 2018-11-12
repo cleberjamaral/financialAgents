@@ -5,95 +5,91 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 
 !start.
 
-//TODO: permitir escolher uma primeira porta para o mindinspectorweb (ex 8080), se nao der dai vai da 3272 em diante
-//TODO: tem como mandar comando pro mas via java.util.logging.ConsoleHandler? como finalizar gentilmente?
-//TODO: sistema esta aumentando o uso de processador!!!
-//TODO: no jacamo o start nao pode ficar no jcm pois ele da start antes de subir os beliefs do arquivo
 //TODO: ao executar aparece no console: [ca] as2j: parsing error:[null:5] ArithExpr: first operand 'ca' is not numeric or variable. [bot1] as2j: parsing error:[null:7] ArithExpr: first operand 'bot1' is not numeric or variable. [bot2] as2j: parsing error:[null:7] ArithExpr: first operand 'bot2' is not numeric or variable. [bot3] as2j: parsing error:[null:7] ArithExpr: first operand 'bot3' is not numeric or variable.
 
 // First run
-+!start : not expertise(_) <-
-	+lastquotation(0);
-	+threshold(0);
-	+expertise(none);
++!start : not alreadyRun <-
+	+alreadyRun;
+	+stock::threshold(0);
+	+stock::expertise(none);
 	!setDefaultParams;
 	!createtelegramartifact;
 	!createstockartifact;
 	sendString("First execution!");
-	-+updatemenu;
+	!updatemenu;
+	.send(bot2,untell,quotation);
+	.send(bot2,tell,quotation);
 	-+introduceyourself.
 
-+!start : .my_name(N) & expertise(E) <-
++!start : .my_name(N) <-
 	!setDefaultParams; 
-    !createtelegramartifact;
+	!createtelegramartifact;
 	!createstockartifact;
-	-+updatemenu;
+	!updatemenu;
 	-+introduceyourself;
-	.abolish(lastquotation(_));
-	.abolish(datequotation(_));
-	.abolish(sourcequotation(_));
-	getLastPrice(E).
+	.send(bot2,untell,quotation);
+	.send(bot2,tell,quotation);
+	!!updateQuotationLoop.
 	
 // default beliefs are set here because of use of bb persistence
 +!setDefaultParams <-
-	-+chatIdTelegram("-274694619");
-	-+menu(["IntroduceYourself","Quotation","SetExpertise","SetThreshold","RecreateArtifact","UpdateMenu"]).
+	-+telegram::chatIdTelegram("-274694619");
+	-+telegram::expertMenu(["IntroduceYourself","Quotation","SetExpertise","SetThreshold"]).
 	
-+quotation : expertise(E) & threshold(T) <- 
-	.abolish(lastquotation(_));
-	.abolish(datequotation(_));
-	.abolish(sourcequotation(_));
-	getLastPrice(E);
++!updatemenu : telegram::expertMenu(LDP) <-
+	clearMenu;
+	for (.member(Item,LDP)) {
+		addMenuOption(Item);
+	}.	
+
++quotation : stock::expertise(E) & stock::threshold(T) <- 
+	!updateQuotation;
 	.wait(500);
-	?lastquotation(P);
-	?datequotation(D);
-	?sourcequotation(S);
+	?stock::lastquotation(P);
+	?stock::datequotation(D);
+	?stock::sourcequotation(S);
 	.concat("Last quotation of ",E," is $", P, ", threshold is $", T, " (", D," by ", S, ")", CC);
 	sendString(CC).
 
-+setthreshold(T) : expertise(E)<- 
-	.print(setthreshold, T);
-	.abolish(threshold(_));
-	+threshold(T);
-	.concat("The threshold price for ",E ," is $", T, CC);
++setthreshold(T) : stock::expertise(E) & .concat("The threshold price for ",E ," is $", T, CC) <- 
+	-+stock::threshold(T);
 	sendString(CC).
 
-+setexpertise(E) <- 
-	.print(setExpertise, E);
-	.abolish(expertise(_));
-	+expertise(E);
-	.concat("My expertise is in ", E, CC);
-	sendString(CC).
++setexpertise(E) : .concat("My expertise is in ", E, CC)<- 
+	-+stock::expertise(E);
+	sendString(CC);
+	!updateQuotationLoop.
 
-+!createtelegramartifact : .my_name(N) & chatIdTelegram(C) <- 
-    .concat("telegram",N,CC);
-    makeArtifact(CC,"telegram.BotArtifact",[],AId);
-    focusWhenAvailable(CC);//[wid(WId)];
-    startCamel(C).
++setlastquotation(P) <- -+stock::lastquotation(P).
+
++setdatequotation(D) <- -+stock::datequotation(D).
+
++setsourcequotation(S) <- -+stock::sourcequotation(S).
+
++!createtelegramartifact : .my_name(N) & telegram::chatIdTelegram(C) & .concat("telegram",N,CC) <- 
+	makeArtifact(CC,"dynamic.telegram.BotArtifact",[],Aid);
+	focus(Aid);
+	startCamel(C).
 
 +!createstockartifact : .my_name(N) <- 
-    .concat("stock",N,CC);
-    makeArtifact(CC,"stock.StockArtifact",[],AId);
-    focusWhenAvailable(CC).
+	.concat("stock",N,CC);
+	makeArtifact(CC,"dynamic.stock.StockArtifact",[],Aid);
+	focus(Aid).
 
-+recreateartifact : .my_name(N) & chatIdTelegram(C) <- 
-	.print("recreateartifact");
-    //?myWorkspace(Wid);
-    //joinWorkspace("finantialmarket",Wid);
-    //-+myWorkspace(Wid);
-    .concat("telegram",N,CC);
-    lookupArtifact(CC,Aid);//[wid(WId)];
-    sendString("Artifact is being disposed...");
-    //focus(AId);//[wid(WId)]; //TODO: focus 2x dá pau? Pq?
-	disposeArtifact(Aid); //TODO: documentar melhor isso! no cartago se chama dispose apenas!!!
-	!createtelegramartifact;
-    sendString("Artifact recreated!").
-
-+introduceyourself : expertise(E) & menu(LDP) <-
-	.concat("Hi! I can help you with ", E, ". You can ask: ",AA);
-	.concat(AA,LDP,BB);
++introduceyourself : stock::expertise(E) & telegram::expertMenu(LDP) & .concat("Hi! I can help you with ", E, ". You can ask: ",LDP,BB) <-
 	sendString(BB).
+
++!updateQuotation : stock::expertise(E) <-
+	getLastPrice(E).
+
++!updateQuotationLoop <-
+	!!updateQuotation;
+	.wait(5*60*1000); //Wait for five minutes
+	!updateQuotationLoop.
+
++!saveYourself : .my_name(N) & .concat("/tmp/",N,".asl",CC) <-
+	.save_agent(CC).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
-{ include("$jacamoJar/templates/org-obedient.asl") }
+//{ include("$jacamoJar/templates/org-obedient.asl") }

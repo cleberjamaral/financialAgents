@@ -15,18 +15,7 @@
 mas finantialAgents {
 	agent one
 
-	agent ca:		 	chiefanalyst.asl {
-		focus:			telegrambot0
-		ag-bb-class: 	jason.bb.TextPersistentBB
-	}
-	 
-    agent bot: 			expert.asl {
-    	instances: 		3
-		ag-bb-class: 	jason.bb.TextPersistentBB
-	}
-
  	workspace finantialmarket {
-        artifact telegrambot0 : telegram.BotArtifact()
     }
  
     asl-path: src/agt

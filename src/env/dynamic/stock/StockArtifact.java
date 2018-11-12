@@ -1,4 +1,4 @@
-package stock;
+package dynamic.stock;
 
 import java.net.*;
 import java.text.NumberFormat;
@@ -33,7 +33,8 @@ public class StockArtifact extends Artifact {
 				// [empty], Horario, Var, Var (%), ultima, Maximo, Minimo, Abertura, Volume
 				NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
 				Number number = format.parse(cols.get(3).text());
-				defineObsProperty("lastquotation", number.doubleValue());
+				signal("setlastquotation", number.doubleValue());
+				//defineObsProperty("lastquotation", number.doubleValue());
 
 				String description = null;
 				Element el = null;
@@ -44,9 +45,8 @@ public class StockArtifact extends Artifact {
 						break;
 					}
 				}
-				defineObsProperty("datequotation", el.text() + " " + cols.get(0).text());
-				defineObsProperty("sourcequotation", "uol");
-				
+				signal("setdatequotation", el.text() + " " + cols.get(0).text());
+				signal("setsourcequotation", "uol");
 				log("Last quotation is " + number.toString() + " (" + el.text() + " " + cols.get(0).text() + ")");
 			} else {
 				log("Error getting quotation!");
