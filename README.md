@@ -38,17 +38,22 @@ finantialAgentsOverview
 finantialAgentsPhases
 @startuml;
 (*) -right-> "adapt camel-artifact to be generic\nrun auction demo app";
--right-> "expert start to monitor a stock\nexpert accepts ceiling price\n expert recomended action";
--right-> "expert uses history to alert buy zone";
--down-> "week4";
--left-> "week5";
--left-> "week6";
--left-> "week7";
--down-> "week8";
--right-> "week9";
--right-> "week10";
--right-> "week11";
+-right-> "expert start to monitor a stock\nexpert accepts ceiling price";
+-right-> "expert recomended action";
+-down-> "agents use different contexts on telegram\nanswering on group or in private";
+-left-> "expert start to use data base";
+-left-> "expert stores historical data";
+-left-> "expert uses history to alert buy zone";
+-down-> "expert apply AI to predict prices";
+-right-> "expert uses prediction to advise\nopportunities";
+-right-> "expert uses sensitive analysis";
+-right-> "chief analyst get sentimental data\nsend to client";
+-down-> "Develop natural language processing";
 -right-> (*) 
 @enduml 
 finantialAgentsPhases
 </details>
+
+## NLP
+https://codeburst.io/nlp-implementation-using-java-opennlp-guide-and-examples-80d86b02b5b5
+
