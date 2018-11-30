@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
+
+<organisational-specification
+	id="finantial_agents" os-version="0.8"
+
+	xmlns='http://moise.sourceforge.net/os'
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd'>
+
+	<structural-specification>
+		<role-definitions>
+			<role id="chiefanalyst" />
+			<role id="expert" />
+			<role id="generalcontroller" />
+			<role id="researcher">
+				<extends role="expert" />
+			</role>
+			<role id="consultant">
+				<extends role="expert" />
+			</role>
+		</role-definitions>
+
+		<group-specification id="finantial_group">
+			<roles>
+				<role id="chiefanalyst" min="1" max="100" />
+				<role id="expert" min="1" max="100" />
+				<role id="generalcontroller" min="1" max="1" />
+			</roles>
+
+			<links>
+				<link from="generalcontroller" type="authority"
+					to="chiefanalyst" scope="intra-group" />
+				<link from="chiefanalyst" type="authority" to="expert"
+					scope="intra-group" />
+			</links>
+		</group-specification>
+	</structural-specification>
+
+	<functional-specification>
+		<scheme id="finantial_sch">
+			<goal id="runsystem">
+				<plan operator="sequence">
+					<goal id="launchsystem">
+						<plan operator="sequence">
+							<goal id="createagents" />
+							<goal id="sendstartcommand" />
+						</plan>
+					</goal>
+					<goal id="startfinantialbusiness">
+						<plan operator="parallel">
+							<goal id="updatequotation">
+								<plan operator="sequence">
+									<goal id="getquotation" ds="get from stock exchange" />
+									<goal id="addondatabase" />
+									<goal id="sendthroughttelegram" />
+								</plan>
+							</goal>
+							<goal id="sendrecomendation">
+								<plan operator="sequence">
+									<goal id="getinformation" ds="get from expert" />
+									<goal id="checkopportunity"
+										ds="is it good for your client?" />
+									<goal id="sendemail" ds="send opportunity" />
+								</plan>
+							</goal>
+						</plan>
+					</goal>
+				</plan>
+			</goal>
+			<mission id="mlaunchsystem" min="1" max="1">
+				<goal id="createagents" />
+				<goal id="sendstartcommand" />
+			</mission>
+		</scheme>
+	</functional-specification>
+
+	<normative-specification>
+	</normative-specification>
+
+</organisational-specification>
