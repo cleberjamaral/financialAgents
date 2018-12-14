@@ -120,8 +120,11 @@ public class BotArtifact extends CamelArtifact {
 					from("artifact:cartago").process(new Processor() {
 						public void process(Exchange exchange) throws Exception {
 							try {
-								String str = exchange.getIn().getBody().toString();
-								exchange.getIn().setBody(str.replaceAll("\\[", "").replaceAll("\\]", ""));
+								//String str = exchange.getIn().getBody().toString();
+								//exchange.getIn().setBody(str.replaceAll("\\[", "").replaceAll("\\]", ""));
+								System.out.println("testing");
+								float tempC = Float.parseFloat(exchange.getIn().getBody().toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+								exchange.getIn().setBody(Float.toString((float) (tempC * 1.8 + 32)));
 							} catch (Exception e) {
 								e.printStackTrace();
 							}

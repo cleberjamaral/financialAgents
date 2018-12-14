@@ -8,8 +8,8 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 //TODO: ao executar aparece no console: [ca] as2j: parsing error:[null:5] ArithExpr: first operand 'ca' is not numeric or variable. [bot1] as2j: parsing error:[null:7] ArithExpr: first operand 'bot1' is not numeric or variable. [bot2] as2j: parsing error:[null:7] ArithExpr: first operand 'bot2' is not numeric or variable. [bot3] as2j: parsing error:[null:7] ArithExpr: first operand 'bot3' is not numeric or variable.
 
 // First run
-+!start : not alreadyRun <-
-	+alreadyRun;
++!start : not alreadyRunning <-
+	+alreadyRunning;
 	+stock::threshold(0);
 	+stock::expertise(none);
 	!setDefaultParams;
@@ -17,8 +17,6 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 	!createstockartifact;
 	sendString("First execution!");
 	!updatemenu;
-	.send(bot2,untell,quotation);
-	.send(bot2,tell,quotation);
 	-+introduceyourself.
 
 +!start : .my_name(N) <-
@@ -27,8 +25,6 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 	!createstockartifact;
 	!updatemenu;
 	-+introduceyourself;
-	.send(bot2,untell,quotation);
-	.send(bot2,tell,quotation);
 	!!updateQuotationLoop.
 	
 // default beliefs are set here because of use of bb persistence
@@ -53,7 +49,7 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 
 +setthreshold(T) : stock::expertise(E) & .concat("The threshold price for ",E ," is $", T, CC) <- 
 	-+stock::threshold(T);
-	sendString(CC).
+	sendString("15").
 
 +setexpertise(E) : .concat("My expertise is in ", E, CC)<- 
 	-+stock::expertise(E);

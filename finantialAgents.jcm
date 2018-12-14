@@ -14,6 +14,7 @@
 
 mas finantialAgents {
 	agent one
+	//agent bot4:	expert-jasoncamel.asl
 
  	workspace finantialmarket {
     }
@@ -21,8 +22,9 @@ mas finantialAgents {
     asl-path: src/agt
               src/agt/inc
               
-    platform: jacamo.web.JCMRest("--restPort 8080")
-    		  jasonCamel.JasonComponent("routes.xml")
+    platform:	jacamo.web.JCMRest("--restPort 8080")
+jasonComponent.JasonCamel("routes.xml") 
+    		  
 
 }
 

@@ -20,13 +20,13 @@
 
 // workspace already exists?
 +!create_group <- 
-     createWorkspace(finantial_agents);
-     joinWorkspace(finantial_agents,Ofa);
+	createWorkspace(finantialagents);
+	joinWorkspace(finantialagents,Ofa);
 	.print("DEBUG: Creating group...");
-    makeArtifact(finantial_agents, "ora4mas.nopl.OrgBoard", ["src/org/finantial_agents.xml"], OrgArtId)[wid(Ofa)];
-    o::focus(OrgArtId);
-    o::createGroup("finantial_team", finantial_group, GrArtId);
-    !createagents;
+	o::makeArtifact(finantialagents, "ora4mas.nopl.OrgBoard", ["src/org/finantial_agents.xml"], OrgArtId)[wid(Ofa)];
+	o::focus(OrgArtId);
+	g::createGroup(finantial_team, finantial_group, GrArtId);
+	!createagents;
 	g::focus(GrArtId);
 	g::adoptRole(generalcontroller);
 	.
@@ -52,20 +52,24 @@
 	!!createAgent(bot1,"expert.asl");
 	!!createAgent(bot2,"expert.asl");
 	!!createAgent(bot3,"expert.asl");
+	!!createAgent(bot4,"expert-jasoncamel.asl");
 	!!createAgent(ca,"chiefanalyst.asl");
 	!!createAgent(jomi,"human.asl");
 	!!createAgent(rafael,"human.asl");
 	!!createAgent(cleber,"human.asl");
+	!!createAgent(sergio,"human.asl");
 	.
 
 +!destroySystem <-
 	!!killAgent(bot1);
 	!!killAgent(bot2);
 	!!killAgent(bot3);
+	!!killAgent(bot4);
 	!!killAgent(ca);
 	!!killAgent(jomi);
 	!!killAgent(rafael);
 	!!killAgent(cleber);
+	!!killAgent(sergio);
 	!!disposeArtifact("telegrambot1");
 	!!disposeArtifact("telegrambot2");
 	!!disposeArtifact("telegrambot3");
