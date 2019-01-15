@@ -20,7 +20,7 @@
     sendString("Stopping system... a new launch must be done manually!");
 	.wait(1000);
 	//.stopMAS;
-	. //TODO: por que as vezes fica um residual???
+	.
 
 // default beliefs are set here because of use of bb persistence
 +!setDefaultParams <-

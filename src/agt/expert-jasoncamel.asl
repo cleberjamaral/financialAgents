@@ -5,8 +5,6 @@ insert_commas([H|T],[H,", "|TC]) :- insert_commas(T,TC).
 
 !start.
 
-//TODO: ao executar aparece no console: [ca] as2j: parsing error:[null:5] ArithExpr: first operand 'ca' is not numeric or variable. [bot1] as2j: parsing error:[null:7] ArithExpr: first operand 'bot1' is not numeric or variable. [bot2] as2j: parsing error:[null:7] ArithExpr: first operand 'bot2' is not numeric or variable. [bot3] as2j: parsing error:[null:7] ArithExpr: first operand 'bot3' is not numeric or variable.
-
 // First run
 +!start[source(self)] : not alreadyRunning <-
 	+alreadyRunning;

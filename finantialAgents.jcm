@@ -23,8 +23,7 @@ mas finantialAgents {
               src/agt/inc
               
     platform:	jacamo.web.JCMRest("--restPort 8080")
-jasonComponent.JasonCamel("routes.xml") 
-    		  
+	jasonComponent.JasonCamel("routes.xml","email.xml") 
 
 }
 

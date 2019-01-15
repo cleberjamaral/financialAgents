@@ -58,6 +58,7 @@
 	!!createAgent(rafael,"human.asl");
 	!!createAgent(cleber,"human.asl");
 	!!createAgent(sergio,"human.asl");
+	!!createAgent(olivier,"human.asl");
 	.
 
 +!destroySystem <-
@@ -69,6 +70,7 @@
 	!!killAgent(jomi);
 	!!killAgent(rafael);
 	!!killAgent(cleber);
+	!!killAgent(olivier);
 	!!killAgent(sergio);
 	!!disposeArtifact("telegrambot1");
 	!!disposeArtifact("telegrambot2");
@@ -78,10 +80,8 @@
 	!!disposeArtifact("stockbot2");
 	!!disposeArtifact("stockbot3");
 	!!disposeArtifact("finantial_agents");
-.
-
+	.
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
-// uncomment the include below to have an agent compliant with its organisation
-//{ include("$moiseJar/asl/org-obedient.asl") }
+{ include("$moiseJar/asl/org-obedient.asl") }
