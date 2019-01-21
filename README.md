@@ -22,7 +22,7 @@ digraph G {
 	}
         ChiefAnalyst -> Expert;
         Expert -> StockData;
-	Expert -> ChiefAnalyst [constraint=false, label="I use Neural Networks\nThe stock ABCD will rise X%\nThe stock GHIJ will fall Y%"];
+	Expert -> ChiefAnalyst [constraint=false, label="I use Neural Networks\nThe stock ABCD will rise X\nThe stock GHIJ will fall Y"];
 	Human -> Telegram [constraint=false, label="Your recomendation?\nWrite there I bought n ABCD for $ Z.00"];
 	ChiefAnalyst -> Telegram [constraint=false, label="Recommendation: buy ABCD and sell GHIJ"];
 }
