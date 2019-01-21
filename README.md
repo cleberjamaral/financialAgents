@@ -1,5 +1,5 @@
 # Finantial Agents 
-This project is an on-the-fly programming application of a Multi-Agent System composed by "finantial consultants". Each consultant will be encharged of a specific stock exchange. There is a manager that can gather information from all consultants summarizing the current situation of the market. The agents are able to "talk" to human by telegram application. Step by step the agents is going to be improved, in an on-the-fly programming way.
+This project is an on-the-fly programming application of a Multi-Agent System composed by "finantial consultants". Each consultant has some assumptions and forecasting technique to give bets about specific stocks. There is chiefs analysts that can gather information from consultants and from a client summarizing the current situation of the market and giving specific suggestions. The agents are able to "talk" to human by telegram application and email. Step by step the agents is going to be improved, in an on-the-fly programming way.
 
 ![Alt text](https://g.gravizo.com/source/finantialAgentsOverview?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md)
 
@@ -23,9 +23,9 @@ digraph G {
 	}
         ChiefAnalyst -> Expert;
         Expert -> StockData;
-	Expert -> Telegram [constraint=false, label="My expertice is XYZ3\nCurrent quotation is R$ 10.00\nI recomend buy/sell/wait\nStock is now under ceiling price"];
-	ChiefAnalyst -> Telegram [constraint=false, label="I am the analyst\nI recomend action ABC4"];
-	Human -> Telegram [constraint=false, label="Your expertice?\nCurrent quotation?\nYour recomendation?"];
+	Expert -> Telegram [constraint=false, label="I use Neural Networks\nThe stock ABCD will rise X%\nThe stock GHIJ will fall Y%"];
+	ChiefAnalyst -> Telegram [constraint=false, label="I am the analyst\nI recomend buy ABCD and sell GHIJ"];
+	Human -> Telegram [constraint=false, label="Your recomendation? Write there I bought n ABCD for $ Z.00"];
 }
 finantialAgentsOverview
 </details>
@@ -38,15 +38,14 @@ finantialAgentsOverview
 finantialAgentsPhases
 @startuml;
 (*) -right-> "adapt camel-artifact to be generic\nrun auction demo app";
--right-> "expert start to monitor a stock\nexpert accepts ceiling price";
--right-> "expert recomended action";
+-right-> "expert are able to get stock quotation";
+-right-> "expert gives quotation by telegram";
 -down-> "agents use different contexts on telegram\nanswering on group or in private";
 -left-> "expert start to use data base";
 -left-> "expert stores historical data";
--left-> "expert uses history to alert buy zone";
--down-> "expert apply AI to predict prices";
--right-> "expert uses prediction to advise\nopportunities";
--right-> "expert uses sensitive analysis";
+-left-> "expert apply AI to predict prices";
+-down-> "chief uses prediction to advise\nopportunities";
+-right-> "agent uses sensitive analysis";
 -right-> "chief analyst get sentimental data\nsend to client";
 -down-> "Develop natural language processing";
 -right-> (*) 
