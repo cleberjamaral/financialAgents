@@ -2,7 +2,6 @@
 This project is an on-the-fly programming application of a Multi-Agent System composed by "finantial consultants". Each consultant has some assumptions and forecasting technique to give bets about specific stocks. There is chiefs analysts that can gather information from consultants and from a client summarizing the current situation of the market and giving specific suggestions. The agents are able to "talk" to human by telegram application and email. Step by step the agents is going to be improved, in an on-the-fly programming way.
 
 ![Alt text](https://g.gravizo.com/source/finantialAgentsOverview?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md)
-
 <details> 
 <summary>Finantial Agents Overview</summary>
 finantialAgentsOverview
@@ -23,9 +22,9 @@ digraph G {
 	}
         ChiefAnalyst -> Expert;
         Expert -> StockData;
-	Expert -> Telegram [constraint=false, label="I use Neural Networks\nThe stock ABCD will rise X%\nThe stock GHIJ will fall Y%"];
-	ChiefAnalyst -> Telegram [constraint=false, label="I am the analyst\nI recomend buy ABCD and sell GHIJ"];
-	Human -> Telegram [constraint=false, label="Your recomendation? Write there I bought n ABCD for $ Z.00"];
+	Expert -> ChiefAnalyst [constraint=false, label="I use Neural Networks\nThe stock ABCD will rise X%\nThe stock GHIJ will fall Y%"];
+	Human -> Telegram [constraint=false, label="Your recomendation?\nWrite there I bought n ABCD for $ Z.00"];
+	ChiefAnalyst -> Telegram [constraint=false, label="Recommendation: buy ABCD and sell GHIJ"];
 }
 finantialAgentsOverview
 </details>
