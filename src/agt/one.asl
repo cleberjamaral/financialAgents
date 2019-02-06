@@ -1,6 +1,7 @@
 // Agent one in project finantialAgents
 
-!create_group.
+//!create_group.
+!createagents.
 
 +!createAgent(A, File) <-
 	.create_agent(A, File, [beliefBaseClass("jason.bb.TextPersistentBB")]). 
@@ -47,38 +48,28 @@
     g::addScheme("scheme");
 	s::commitMission(mlaunchsystem);
 	.
-	  
+  
 +!createagents <-
-	!!createAgent(bot1,"expert.asl");
-	!!createAgent(bot2,"expert.asl");
-	!!createAgent(bot3,"expert.asl");
-	!!createAgent(bot4,"expert-jasoncamel.asl");
-	!!createAgent(ca,"chiefanalyst.asl");
+	!!createAgent(grahan,"grahan.asl");
+	!!createAgent(greenblatt,"greenblatt.asl");
+	!!createAgent(bazin,"bazin.asl");
 	!!createAgent(jomi,"human.asl");
 	!!createAgent(rafael,"human.asl");
 	!!createAgent(cleber,"human.asl");
-	!!createAgent(sergio,"human.asl");
 	!!createAgent(olivier,"human.asl");
 	.
 
 +!destroySystem <-
-	!!killAgent(bot1);
-	!!killAgent(bot2);
-	!!killAgent(bot3);
-	!!killAgent(bot4);
-	!!killAgent(ca);
+	!!killAgent(grahan);
+	!!killAgent(greenblatt);
+	!!killAgent(bazin);
 	!!killAgent(jomi);
 	!!killAgent(rafael);
 	!!killAgent(cleber);
 	!!killAgent(olivier);
-	!!killAgent(sergio);
-	!!disposeArtifact("telegrambot1");
-	!!disposeArtifact("telegrambot2");
-	!!disposeArtifact("telegrambot3");
-	!!disposeArtifact("telegramca");
-	!!disposeArtifact("stockbot1");
-	!!disposeArtifact("stockbot2");
-	!!disposeArtifact("stockbot3");
+	!!disposeArtifact("fundamentalsgrahan");
+	!!disposeArtifact("fundamentalsgreenblatt");
+	!!disposeArtifact("fundamentalsbazin");
 	!!disposeArtifact("finantial_agents");
 	.
 
