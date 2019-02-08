@@ -8,28 +8,33 @@ finantialAgentsOverview
 digraph G {
 	subgraph cluster_0 {
 		label="Multi-Agent System\nFinantial Agents";
-		StockData [label="Stock Data", shape=cylinder];
 		Assistant [label="Personal Assistant"];
 		Expert1 [label="Expert 1"];
-		Expert2 [label="Expert 2"];
 		ExpertN [label="Expert N"];
 	}
 	subgraph cluster_1 {
-		label="Telegram";		
-		Telegram [shape=note];
-	}
-	subgraph cluster_2 {
 		label="Humans";
 		Human [shape=circle];
 	}
-        Assistant -> Expert1 -> StockData;
-        Assistant -> Expert2 -> StockData;
-        Assistant -> ExpertN -> StockData;
-	Expert1 -> Assistant [constraint=false, label="I use Moving Avarages\nThe stock ABCD will rise"];
-	Expert2 -> Assistant [constraint=false, label="I use PL\nThe stock ABCD is cheap"];
-	ExpertN -> Assistant [constraint=false, label="I use ANN\nThe stock ABCD will rise"];
-	Human -> Telegram [constraint=false, label="Your recomendation?"];
-	Assistant -> Telegram [constraint=false, label="Recommendation: buy ABCD"];
+	subgraph cluster_2 {
+		label="Legend";
+		node[ shape = plaintext ];
+		leg2[ label = "Through\nTelegram" ];
+		leg4[ label = "ACL\nMessage" ];
+		node [ shape = point height = 0 width = 0 margin = 0 ];
+		leg1 leg3
+		{ rank = same; leg1 leg2 }
+		{ rank = same; leg3 leg4 }
+		edge[ minlen = 1 ];
+		leg1 -> leg2[ style = dotted ];
+		leg3 -> leg4;
+	}
+	Human -> Assistant [color = gray20, fontcolor = gray20, style = dotted, label="Recomendation?"];
+	Assistant -> Expert1 [color = gray20, fontcolor = gray20, label="ABCD?"];
+	Expert1 -> Assistant [color = black, fontcolor = black, label="ABCD\nwill rise"];
+	Assistant -> ExpertN [color = gray20, fontcolor = gray20, label="ABCD?"];
+	ExpertN -> Assistant [color = black, fontcolor = black, label="ABCD\nis cheap"];
+	Assistant -> Human [color = black, fontcolor = black, style = dotted, label="Buy\nABCD"];
 }
 finantialAgentsOverview
 </details>
