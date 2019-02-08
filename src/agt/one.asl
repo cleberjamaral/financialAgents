@@ -1,7 +1,6 @@
 // Agent one in project finantialAgents
 
-//!create_group.
-!createagents.
+!create_group.
 
 +!createAgent(A, File) <-
 	.create_agent(A, File, [beliefBaseClass("jason.bb.TextPersistentBB")]). 
@@ -21,15 +20,15 @@
 
 // workspace already exists?
 +!create_group <- 
-	createWorkspace(finantialagents);
-	joinWorkspace(finantialagents,Ofa);
+	createWorkspace(financialagents);
+	joinWorkspace(financialagents,Ofa);
 	.print("DEBUG: Creating group...");
-	o::makeArtifact(finantialagents, "ora4mas.nopl.OrgBoard", ["src/org/finantial_agents.xml"], OrgArtId)[wid(Ofa)];
+	o::makeArtifact(financialagents, "ora4mas.nopl.OrgBoard", ["src/org/financial_agents.xml"], OrgArtId)[wid(Ofa)];
 	o::focus(OrgArtId);
-	g::createGroup(finantial_team, finantial_group, GrArtId);
+	g::createGroup(financial_team, financial_group, GrArtId);
 	!createagents;
 	g::focus(GrArtId);
-	g::adoptRole(generalcontroller);
+	g::adoptRole(controller);
 	.
 
 -!create_group[error(E), error_msg(M), reason(R)] <-
@@ -53,20 +52,22 @@
 	!!createAgent(grahan,"grahan.asl");
 	!!createAgent(greenblatt,"greenblatt.asl");
 	!!createAgent(bazin,"bazin.asl");
-	!!createAgent(jomi,"human.asl");
-	!!createAgent(rafael,"human.asl");
-	!!createAgent(cleber,"human.asl");
-	!!createAgent(olivier,"human.asl");
+	!!createAgent(myPA,"personalassistant.asl");
+	//!!createAgent(jomi,"human.asl");
+	//!!createAgent(rafael,"human.asl");
+	//!!createAgent(cleber,"human.asl");
+	//!!createAgent(olivier,"human.asl");
 	.
 
 +!destroySystem <-
 	!!killAgent(grahan);
 	!!killAgent(greenblatt);
 	!!killAgent(bazin);
-	!!killAgent(jomi);
-	!!killAgent(rafael);
-	!!killAgent(cleber);
-	!!killAgent(olivier);
+	!!killAgent(myPA);
+	//!!killAgent(jomi);
+	//!!killAgent(rafael);
+	//!!killAgent(cleber);
+	//!!killAgent(olivier);
 	!!disposeArtifact("fundamentalsgrahan");
 	!!disposeArtifact("fundamentalsgreenblatt");
 	!!disposeArtifact("fundamentalsbazin");
