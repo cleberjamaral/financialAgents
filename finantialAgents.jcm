@@ -1,5 +1,5 @@
 /*
-    finantialAgents
+    financial
     ---------------------------
 
     JaCaMo Project File
@@ -8,22 +8,43 @@
 
     (see jacamo/doc/jcm.html for more information about what can be defined in this file)
 
-    JaCaMo <VERSION>
-    <DATE>
+    JaCaMo <VERSION> <DATE>
 */
 
-mas finantialAgents {
-	agent one
-	//agent bot4:	expert-jasoncamel.asl
+mas financial {
+    agent bazin         : bazin.asl {
+        join:       financialorg
+        roles:      consultant in financialteam 
+    }
+    agent greenblatt    : greenblatt.asl {
+        join:       financialorg
+        roles:      consultant in financialteam
+    }
+    agent grahan        : grahan.asl {
+        join:       financialorg
+        roles:      consultant in financialteam
+    }
+    agent myPA          : assistant.asl {
+        join:       financialorg
+        roles:      assistant in financialteam
+    }
+ 
+    workspace financialagents {
+        artifact fundamentus: dynamic.stock.FundamentusArtifact
+    }
 
- 	workspace finantialmarket {
+    organisation financialorg : financial.xml {
+        group financialteam : financialgroup {
+            responsible-for : financialsch
+        }
+        scheme financialsch : financialsch
     }
  
     asl-path: src/agt
               src/agt/inc
               
-    platform:	jacamo.web.JCMRest("--restPort 8080")
-	jasonComponent.JasonCamel("routes.xml","email.xml") 
+    platform:   jacamo.web.JCMRest("--restPort 8080")
+    jasonComponent.JasonCamel("routes.xml") 
 
 }
 
@@ -80,3 +101,4 @@ agent bob : participant.asl { // if source is omitted, bob.asl will be used by d
     agents:
         a beliefBaseClass jason.bb.TextPersistentBB;
  */
+
