@@ -1,13 +1,13 @@
-# Finantial Agents 
-This project is an on-the-fly programming application of a Multi-Agent System composed by "finantial consultants". Each consultant has some assumptions and forecasting technique to give bets about specific stocks. There is chiefs analysts that can gather information from consultants and from a client summarizing the current situation of the market and giving specific suggestions. The agents are able to "talk" to human by telegram application and email. Step by step the agents is going to be improved, in an on-the-fly programming way.
+# Financial Agents 
+This project is an on-the-fly programming application of a Multi-Agent System composed by "financial consultants". Each consultant has some assumptions and forecasting technique to give bets about specific stocks. There is chiefs analysts that can gather information from consultants and from a client summarizing the current situation of the market and giving specific suggestions. The agents are able to "talk" to human by telegram application and email. Step by step the agents is going to be improved, in an on-the-fly programming way.
 
-![Alt text](https://g.gravizo.com/source/finantialAgentsOverview?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md)
+![Alt text](https://g.gravizo.com/source/financialAgentsOverview?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md)
 <details> 
-<summary>Finantial Agents Overview</summary>
-finantialAgentsOverview
+<summary>Financial Agents Overview</summary>
+financialAgentsOverview
 digraph G {
 	subgraph cluster_0 {
-		label="Multi-Agent System\nFinantial Agents";
+		label="Multi-Agent System\nFinancial Agents";
 		Assistant [label="Personal Assistant"];
 		Expert1 [label="Expert 1"];
 		ExpertN [label="Expert N"];
@@ -36,15 +36,15 @@ digraph G {
 	ExpertN -> Assistant [color = black, fontcolor = black, label="ABCD\nis cheap"];
 	Assistant -> Human [color = black, fontcolor = black, style = dotted, label="Buy\nABCD"];
 }
-finantialAgentsOverview
+financialAgentsOverview
 </details>
 
 # Project Phases
 
-![Alt text](https://g.gravizo.com/source/finantialAgentsPhases?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md?1)
+![Alt text](https://g.gravizo.com/source/financialAgentsPhases?https%3A%2F%2Fraw.githubusercontent.com%2Fcleberjamaral%2FfinantialAgents%2Fmaster%2FREADME.md?1)
 <details> 
 <summary>Project phases - deliveries every week</summary>
-finantialAgentsPhases
+financialAgentsPhases
 @startuml;
 (*) -right-> "adapt camel-artifact to be generic\nrun auction demo app";
 -right-> "expert are able to get stock quotation";
@@ -59,7 +59,7 @@ finantialAgentsPhases
 -down-> "Develop natural language processing";
 -right-> (*) 
 @enduml 
-finantialAgentsPhases
+financialAgentsPhases
 </details>
 
 ## NLP
