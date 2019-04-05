@@ -20,7 +20,7 @@ mas financial {
         join:       financialorg
         roles:      consultant in financialteam
     }
-    agent grahan        : grahan.asl {
+    agent graham        : graham.asl {
         join:       financialorg
         roles:      consultant in financialteam
     }
