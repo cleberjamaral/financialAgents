@@ -1,10 +1,9 @@
-
 /* * * * initial beliefs * * * */
 
 /* * * * setup plans * * * */
 
 !focusFundamentusArtifact.
-!joinFinancialGroup.
+//!joinFinancialGroup.
 
 /* * * * plans * * * */
 
@@ -29,3 +28,4 @@
 	.wait(1000);
 	!reply(S,Q);
 	.
+			

@@ -96,9 +96,9 @@ public class FundamentusArtifact extends Artifact {
                 if (isNumericThisBRLStr(cols.get(1).text(), number));
                 signal("setEBIT", stock, number.doubleValue());
                 
-                log("Consulta ao site fundamentus.com.br realizada com sucesso por "+getCurrentOpAgentBody().getName()+"!");
+                log("Consult on fundamentus.com.br done succesfully by "+getCurrentOpAgentBody().getName()+"!");
             } else {
-                log("Erro ao obter fundamentos!");
+                log("Error on consulting fundamentos web-site!");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,3 +119,5 @@ public class FundamentusArtifact extends Artifact {
     }
 }
 
+           
+           
