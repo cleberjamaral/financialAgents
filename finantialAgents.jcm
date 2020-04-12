@@ -28,6 +28,7 @@ mas financial {
         join:       financialorg
         roles:      assistant in financialteam
     }
+    agent cleber        : human.asl
  
     workspace financialagents {
         artifact fundamentus: dynamic.stock.FundamentusArtifact
@@ -44,8 +45,7 @@ mas financial {
               src/agt/inc
               
     platform:   jacamo.web.JCMRest("--restPort 8080")
-    jasonComponent.JasonCamel("routes.xml") 
-
+    jasonComponent.JasonCamel("routes.xml","email.xml")
 }
 
 /*

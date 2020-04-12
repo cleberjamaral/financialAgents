@@ -1,0 +1,52 @@
+	<routes xmlns="http://camel.apache.org/schema/spring" >
+
+	<route id="sendMail">
+		<from uri="jason:toEmail" />
+		<setBody><simple>${body.replaceAll("\u0022","")}</simple></setBody> <!-- remove quotes -->
+		<setHeader headerName="Subject">
+			<simple>${in.body}</simple>
+		</setHeader>
+	<choice>
+		<when>
+			<simple>${in.body} starts with 'cleber'</simple>
+			<setHeader headerName="To">
+				<constant>cleberjamaral@gmail.com</constant>
+			</setHeader>
+			</when>
+			<when>
+				<simple>${bodyAs(String)} starts with 'jomi'</simple>
+				<setHeader headerName="To">
+					<constant>jomifred@gmail.com</constant>
+				</setHeader>
+			</when>
+			<when>
+				<simple>${bodyAs(String)} starts with 'olivier'</simple>
+				<setHeader headerName="To">
+					<constant>olivier.boissier@emse.fr</constant>
+				</setHeader>
+			</when>
+			<when>
+				<simple>${bodyAs(String)} starts with 'rafael'</simple>
+				<setHeader headerName="To">
+					<constant>rafael.bordini@pucrs.br</constant>
+				</setHeader>
+			</when>
+			<otherwise>
+				<setHeader headerName="To">
+					<constant>jacamo.web@gmail.com</constant>
+				</setHeader>
+			</otherwise>
+		</choice>
+		<setBody>
+			<simple>
+${in.body}\n
+Hi,
+The message above was sent by an agent associated with your email. It is your agent running on http://191.36.8.42:8080.
+Jacamo-web testing application allows to send it by selecting an agent based on 'human.asl' file and typing in command box !sendMail(\"some message\").
+You can try it out! We have a few humans with proper configurations, it is working!
+Cheers\n
+			</simple>
+		</setBody>
+		<to uri="smtps://smtp.gmail.com:465?username=jacamo.web@gmail.com&amp;password=12345678abcdefgh&amp;debugMode=true&amp;mail.smtp.auth=true&amp;mail.smtp.starttls.enable=true"/>
+	</route>
+</routes>
