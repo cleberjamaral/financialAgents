@@ -39,22 +39,31 @@ stocks::radar(['ABCB4','ABEV3','ALUP11','B3SA3','BBAS3','BBDC4','BBSE3','BRFS3',
     .wait(30000); 
 
     .print("Checking if there are good opportunities...");
+    -+n33([]);
     for (.member(T,L)) {
-        .lower_case(T,Item); //Internally allway lower which is easier to be treated as a string
+        .lower_case(T,Item); //Internally allways lower which is easier to be treated as a string
         .count(stocks::recommend(Item,comprar,_),N);
         if (N == 3) {
-            .concat("Recomendado COMPRAR por todos os consultores: ",Item, CCC);
-            .send(toTelegram,tell,CCC);
+	    ?n33(N33);
+	    -+n33([Item|N33]);
         }
     };
+    ?n33(N333);
+    .concat("Recomendado COMPRAR por todos os consultores: ",N333, CCC);
+    .send(toTelegram,tell,CCC);
+
+    -+n23([]);
     for (.member(T,L)) {
-        .lower_case(T,Item); //Internally allway lower which is easier to be treated as a string
+        .lower_case(T,Item); //Internally allways lower which is easier to be treated as a string
         .count(stocks::recommend(Item,comprar,_),N);
         if (N == 2) {
-            .concat("Recomendado COMPRAR por 2/3 dos consultores: ",Item, CCC);
-            .send(toTelegram,tell,CCC);
+            ?n23(N23);
+            -+n23([Item|N23]);
         }
     };
+    ?n23(N233);
+    .concat("Recomendado COMPRAR por 2/3 dos consultores: ",N233, CC2);
+    .send(toTelegram,tell,CC2);
     .
     
 +!getOpportunities <- 
@@ -106,4 +115,5 @@ stocks::radar(['ABCB4','ABEV3','ALUP11','B3SA3','BBAS3','BBDC4','BBSE3','BRFS3',
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 { include("$jacamoJar/templates/org-obedient.asl") }
+			
 			
